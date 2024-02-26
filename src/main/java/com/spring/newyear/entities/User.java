@@ -15,9 +15,6 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @Column(nullable=false, name="username")
-    private String username;
-
     @Column(name="firstname")
     private String firstname;
 
@@ -26,12 +23,26 @@ public class User {
 
     @Column(name="email")
     private String email;
+
+    @Column(name="phone")
+    private String phone;
+
+    @Column(name="image")
+    private String image;
+
+    @Column(name="birthday")
+    private String birthday;
+
     public User() {}
-    public User(String username, String firstname, String lastname, String email) {
-        this.username = username;
+
+    public User(Integer id, String firstname, String lastname, String email, String phone, String image, String birthday) {
+        this.id = id;
         this.firstname = firstname;
         this.lastname = lastname;
         this.email = email;
+        this.phone = phone;
+        this.image = image;
+        this.birthday = birthday;
     }
 
     public Integer getId() {
@@ -40,14 +51,6 @@ public class User {
 
     public void setId(Integer id) {
         this.id = id;
-    }
-
-    public String getUsername() {
-        return username;
-    }
-
-    public void setUsername(String username) {
-        this.username = username;
     }
 
     public String getFirstname() {
@@ -72,5 +75,29 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getImage() {
+        return image;
+    }
+
+    public void setImage(String image) {
+        this.image = image;
+    }
+
+    public String getBirthday() {
+        return birthday;
+    }
+
+    public void setBirthday(String birthday) {
+        this.birthday = birthday;
     }
 }

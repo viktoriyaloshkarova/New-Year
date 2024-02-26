@@ -40,6 +40,14 @@ public class UserController {
         }
         return new ResponseEntity<User>(user, HttpStatus.OK);
     }
+    @GetMapping("/find/email/{email}")
+    public ResponseEntity<User> getUserByEmail(@PathVariable("email") String email) {
+        User user = userRepo.findByEmail(email).orElse(null);
+        if (user == null) {
+            return new ResponseEntity<User>(HttpStatus.NOT_FOUND);
+        }
+        return new ResponseEntity<User>(user, HttpStatus.OK);
+    }
 
     @PostMapping("/add")
     public ResponseEntity<Void> addUser(@RequestBody User user) {
