@@ -1,56 +1,42 @@
 import './App.css';
-import {useEffect, useState} from 'react';
-import { Routes, Route} from "react-router-dom";
+import axios from 'axios';
+import {useContext, useEffect, useState} from 'react';
+import { Routes, Route,} from "react-router-dom";
 import {jwtDecode} from 'jwt-decode';
 import UserInfo from './pages/UserInfo';
 import Header from './components/Header';
 import Home from './pages/Home';
-import { UserContext} from './context/UserContext';
-
-
+import { UserContext, UserContextProvider} from './context/UserContext';
+import {QueryClientProvider,  QueryClient, useQuery} from  'react-query';
+import Login from './components/Login'
+import {CookiesProovider, CookiesProvider} from 'react-cookie'
+import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
+import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
+import { useSelector, useDispatch } from 'react-redux';
 
 function App() {
-
-  const [user, setUser] = useState({});
-
-  function handleCredentialResponse(response) {
-    console.log("encoded JWT ID token: " + response.credential);
-    var userObject = jwtDecode(response.credential);
-    console.log(userObject);
-    setUser(userObject);
-    document.getElementById("signInDiv").hidden = true;
-  }
-  useEffect(() => {
-    /* global google */
-    google.accounts.id.initialize({
-      client_id: "596584034308-c6k5qi2vcvo3504vatts66bimjvsovi5.apps.googleusercontent.com",
-      callback: handleCredentialResponse
-    });
-    google.accounts.id.renderButton(
-      document.getElementById("signInDiv"),
-      { theme: "outline", size: "large" }  // customization attributes
-    );
-    google.accounts.id.prompt(); //display the One Tap dialog
-  }, []);
-
-  function handleSignOut(event) {
-    setUser({});
-    document.getElementById("signInDiv").hidden = false;
-  }
   
+
+  const userTest = useSelector((state) => state.user.user);
+ 
+
   return (
     <>
-    <div id="signInDiv"></div>
-    {Object.keys(user).length !== 0 &&
-      <button onClick={ (e) => handleSignOut(e)}>Log Out</button>
-    }
-      <UserContext.Provider value={[user, setUser]}>
+
       <Header />
+      {!userTest && <Login />}
+      {userTest && 
+      <div>
+      <p>{userTest.email}</p>
+      <img src={userTest.picture} alt=""></img>
+      </div>
+      }
+      
       <Routes>
         <Route path="/user" element={<UserInfo />}/>
         <Route path="/home" element={<Home />}/>
       </Routes>
-      </UserContext.Provider>
+ 
     </>
   );
 }

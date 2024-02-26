@@ -1,35 +1,31 @@
 import axios from 'axios';
 import {useState, useEffect} from 'react';
 import { useContext } from "react";
-import { UserContext } from "../context/UserContext";
+import { useUserContext } from "../context/UserContext";
+
+import Login from '../components/Login';
+import Button from 'react-bootstrap/Button';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../redux/userSlice';
 
 function UserInfo() {
-  //   const [user, setUser] = useState(null);
-  // useEffect(() => {
-  //   axios.get("http://localhost:8080/users/find/1").then((response) => {
-  //     setUser(response.data);
-  //   });
-  // }, []);
-  // if (!user) return null;
-
-  const [user, setUser] = useContext(UserContext);
-
+  
+  const dispatch = useDispatch();
   function handleSignOut(event) {
-    setUser({});
+    dispatch(userActions.removeUser());
   }
-
+  const userTest = useSelector((state) => state.user.user);
+  const isLoggedIn = useSelector((state) => state.user.loggedIn);
+  
+console.log(isLoggedIn);
   return (
     <>
     <p>Hello World!</p>
-    {user &&
-      <div>
-        <img src={user.picture} alt="person icon"></img>
-        <h3>Hello {user.name}</h3>
-      </div>
-    }
-     {Object.keys(user).length !== 0 &&
+
+    {!isLoggedIn && <Login />}
+     {isLoggedIn &&
       <button onClick={ (e) => handleSignOut(e)}>Log Out</button>
-    }
+    } 
     </>
   );
 }
