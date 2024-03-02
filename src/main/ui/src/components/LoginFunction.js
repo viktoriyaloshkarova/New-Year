@@ -13,7 +13,6 @@ const user = {};
 
 const LoginFunction = {
 
-  // const [user, setUser] = useState({});
   
 
   addUser: function(userObject){

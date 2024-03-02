@@ -1,18 +1,14 @@
 import './App.css';
-import axios from 'axios';
 import {useContext, useEffect, useState} from 'react';
 import { Routes, Route,} from "react-router-dom";
-import {jwtDecode} from 'jwt-decode';
 import UserInfo from './pages/UserInfo';
 import Header from './components/Header';
 import Home from './pages/Home';
-import { UserContext, UserContextProvider} from './context/UserContext';
-import {QueryClientProvider,  QueryClient, useQuery} from  'react-query';
 import Login from './components/Login'
-import {CookiesProovider, CookiesProvider} from 'react-cookie'
-import { PersistQueryClientProvider } from '@tanstack/react-query-persist-client'
-import { createSyncStoragePersister } from '@tanstack/query-sync-storage-persister'
 import { useSelector, useDispatch } from 'react-redux';
+import Goals from './pages/Goals';
+import CreateGoal from './components/CreateGoal';
+import Explore from './pages/Explore';
 
 function App() {
   
@@ -35,6 +31,9 @@ function App() {
       <Routes>
         <Route path="/user" element={<UserInfo />}/>
         <Route path="/home" element={<Home />}/>
+        <Route path="/goals" element={<Goals />}/>
+        <Route path="/explore" element={<Explore/>}/>
+        <Route path="/newgoal" element={<CreateGoal />}/>
       </Routes>
  
     </>

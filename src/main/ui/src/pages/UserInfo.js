@@ -1,12 +1,10 @@
-import axios from 'axios';
-import {useState, useEffect} from 'react';
-import { useContext } from "react";
-import { useUserContext } from "../context/UserContext";
-
 import Login from '../components/Login';
 import Button from 'react-bootstrap/Button';
 import { useDispatch, useSelector } from 'react-redux';
 import { userActions } from '../redux/userSlice';
+import Container from 'react-bootstrap/Container';
+import Row from 'react-bootstrap/Row';
+import Col from 'react-bootstrap/Col';
 
 function UserInfo() {
   
@@ -14,18 +12,28 @@ function UserInfo() {
   function handleSignOut(event) {
     dispatch(userActions.removeUser());
   }
-  const userTest = useSelector((state) => state.user.user);
+  const user = useSelector((state) => state.user.user);
   const isLoggedIn = useSelector((state) => state.user.loggedIn);
   
 console.log(isLoggedIn);
   return (
     <>
-    <p>Hello World!</p>
-
-    {!isLoggedIn && <Login />}
+    <Container>
+      <Row>
+        <Col xs={4} id='menu'>
+        {!isLoggedIn && <Login />}
      {isLoggedIn &&
       <button onClick={ (e) => handleSignOut(e)}>Log Out</button>
     } 
+        </Col>
+        <Col md='auto' id='display'>
+        <p>Hello World!</p>
+        </Col>
+      </Row>
+    
+
+    
+    </Container>
     </>
   );
 }

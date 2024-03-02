@@ -67,12 +67,7 @@ function Login() {
   
     return(
         <>
-
         <div id="signInDiv"></div>
-       {/* <button onClick={() => initializeUser}></button> */}
-        <p>{user.firstname}</p>
-        {/* <p>{fetchUser}</p> */}
-
         </>
     )
     
