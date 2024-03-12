@@ -1,0 +1,34 @@
+
+.center {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    min-height: 80vh;
+  }
+
+.btn-custom {
+font-size: 30px; 
+padding: 5px 50px; 
+border-radius: 40px; 
+background-color: #7ed957; 
+color: white; 
+text-decoration: none; 
+border: none; 
+cursor: pointer; 
+transition: background-color 0.3s ease;
+}
+
+.btn-custom:hover {
+background-color: darkgreen; 
+color: white; 
+}
+
+.center h1 {
+font-size: 52px; 
+}
+
+h1{
+    color:rgb(35, 35, 35);
+    font-weight: bold;
+}
