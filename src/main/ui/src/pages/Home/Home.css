@@ -7,7 +7,7 @@
     min-height: 80vh;
   }
 
-.btn-custom {
+.btn-getStarted {
 font-size: 30px; 
 padding: 5px 50px; 
 border-radius: 40px; 
@@ -19,7 +19,7 @@ cursor: pointer;
 transition: background-color 0.3s ease;
 }
 
-.btn-custom:hover {
+.btn-getStarted:hover {
 background-color: darkgreen; 
 color: white; 
 }

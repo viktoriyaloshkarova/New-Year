@@ -1,11 +1,55 @@
+.goalsPage {
+  margin: 20px;
+}
+
+.btn-newGoal {
+  margin: 10px;
+  font-size: 20px; 
+  padding: 5px 20px; 
+  border-radius: 40px; 
+  background-color: #7ed957; 
+  color: white; 
+  text-decoration: none; 
+  border: none; 
+  cursor: pointer; 
+  transition: background-color 0.3s ease;
+}
+
+.btn-newGoal:hover {
+  background-color: darkgreen; 
+  color: white; 
+}
+
+.btn-deleteGoal {
+  margin-top: 5px;
+  background-color: rgb(181, 54, 54);
+  border: 'none';
+  color: rgb(239, 225, 225);
+}
+
+.btn-addDetail {
+  margin-top: 5px;
+  margin-right: 5px;
+  background-color: #7ed957;
+  border: 'none';
+  color: rgb(255, 255, 255);
+}
+
 .accordionItemContainer {
     display: flex;
     align-items: center;
+    
   }
   
   .buttonContainer {
     margin-left: 10px;
   }
+
+.accordion-button {
+  display: flex;
+  align-items: center;
+  font-size: 25px;
+}
 
 .financial .accordion-button {
     background-color: rgb(158, 225, 139) !important;
@@ -30,6 +74,11 @@
   {
     box-shadow: none;
   }
+
+  .accordion-body {
+    font-size: 18px;
+  }
+
   .financial .accordion-body {
     background-color: rgb(194, 245, 180) ;
   } 

@@ -22,10 +22,10 @@ function Home() {
         <br/>
         <div class="text-center">
         {isLoggedIn &&
-        <Button href="/goals" variant="custom">Get Started</Button>
+        <Button href="/goals" variant="getStarted">Get Started</Button>
         }
         {!isLoggedIn &&
-            <Button href="login" > Get Started</Button> 
+            <Button href="login" variant="getStarted"> Get Started</Button> 
         }
         </div>
         </div>
