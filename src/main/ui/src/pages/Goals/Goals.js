@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Button, Card, Accordion, Form, ProgressBar, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
-import { FaTrash, FaPen, FaCheck } from 'react-icons/fa';
+import { FaTrash, FaPen, FaCheck, FaPlus, FaMinus } from 'react-icons/fa';
 import { RxCross2 } from "react-icons/rx";
 import axios from "axios";
 import './/Goals.css'
@@ -9,6 +9,7 @@ import './/Goals.css'
 function Goals() {
     const [goals, setGoals] = useState([]);
     const [editableText, setEditableText] = useState('');
+    const [progress, setProgress] = useState(0);
     const [isEditing, setIsEditing] = useState(false);
     const [editingId, setEditingId] = useState(null);
     const dispatch = useDispatch();
@@ -28,7 +29,7 @@ function Goals() {
                             .then((response) => {
                                 console.log('inside')
                                 let resp = response.data
-                                goal['details'] = resp
+                                // goal['details'] = resp
                                 setGoalDetails(goalDetails=> ({
                                     ...goalDetails, [goal.goalId]: resp
                                 }))
@@ -40,13 +41,30 @@ function Goals() {
             fetchGoals();
     }, [])
 
-    console.log(goalDetails)
-    console.log(goals)
-    const [progress, setProgress] = useState(0);
-    const [goal1, setGoal] = useState(0);
-    const handleButtonClick = () => {
+    // console.log(goalDetails[1].length)
+    // console.log(goals)
+
+  
+    const handleIncrease = (detail, goal) => {
       // Update progress on button click
-      setProgress(progress + 10);
+        if(detail.progress < 100) {
+            setProgress({ ...progress, [detail.goalDetailId]: detail.progress+10 });
+            detail['progress'] += 10
+            axios.put("http://localhost:8080/goaldetails/update/" + detail.goalDetailId, detail)
+            console.log(goalDetails[goal.goalId].length);
+            goal['progress'] += (10/goalDetails[goal.goalId].length)
+            axios.put("http://localhost:8080/goals/update/" + goal.goalId, goal)
+        }
+    };
+
+    const handleDecrease = (detail, goal) => {
+        if (detail.progress > 0) {
+            {setProgress({ ...progress, [detail.goalDetailId]: detail.progress-10 });
+            detail['progress'] -= 10
+            axios.put("http://localhost:8080/goaldetails/update/" + detail.goalDetailId, detail)}
+            goal['progress'] -= (10/goalDetails[goal.goalId].length)
+            axios.put("http://localhost:8080/goals/update/" + goal.goalId, goal)
+        }
     };
 
     const handleEditClick = (id, text) => {
@@ -69,7 +87,17 @@ function Goals() {
     const handleChange = (id, e) => {
         setEditableText({ ...editableText, [id]: e.target.value });
     };
-   
+
+    const handleAddDetail = () => {
+
+    }
+
+    const handleDeleteDetail = () => {
+        
+    }
+
+
+    
     return(
         <div className='goalsPage'>
         <h1>Your Goals
@@ -87,16 +115,16 @@ function Goals() {
                 <Accordion.Item eventKey={goal.goalId} className={goal.category}>
                 <Accordion.Header>
                     <span>{goal.title}</span>
-                    
-                        <Container style={{ width: 200, marginRight: '0px' }}>
-                            <ProgressBar now={progress} variant='success' style={{ flex: '1'}} />
+                    <div style={{ display: 'flex', justifyContent: 'flex-end' }}>
+                        <Container style={{ width: 200, marginRight: '10px' }}>
+                            <ProgressBar now={goal.progress} variant='success' style={{ flex: '1'}} />
                         </Container>
-                    
+                    </div>
                 </Accordion.Header>
                     <Accordion.Body  className={goal.category} >
-                    {goal.details &&
+                    {goalDetails[goal.goalId] &&
                         <>
-                        { goal.details.map((detail) => (
+                        { goalDetails[goal.goalId].map((detail) => (
                             <>
                             <div style={{ display: 'flex', alignItems: 'center' }}>
                             {isEditing[detail.goalDetailId] ? (
@@ -104,9 +132,18 @@ function Goals() {
                             ) : (
                                 <Form.Check type="checkbox" label={detail.text} />
                             )}
+                           
                             <Container style={{ width: 200, marginRight: '10px' }}>
-                            <ProgressBar now={progress} variant='success' style={{ flex: '1'}} />
+                                {progress[detail.goalDetailId] ? (
+                                    <ProgressBar now={progress[detail.goalDetailId]} variant='success' style={{ flex: '1'}} />
+                                ) : (
+                                    <ProgressBar now={detail.progress} variant='success' style={{ flex: '1'}} />
+                                )
+                            }
+                            
                             </Container>
+                            <Button variant="edit" onClick={() => handleIncrease(detail, goal)}><FaPlus /></Button>
+                            <Button variant="edit" onClick={() => handleDecrease(detail, goal)}><FaMinus /></Button>
                             {isEditing[detail.goalDetailId] ? (
                                 <>
                                     <Button variant="edit" onClick={() => handleSaveClick(detail)}><FaCheck /></Button>
@@ -121,12 +158,12 @@ function Goals() {
                             </div>
                             </>
                         ))}
-                        {goal.details.length === 0 &&
+                        {goalDetails[goal.goalId].length === 0 &&
                         <h3>Add goal details!</h3>
                         }
                         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                        <Button variant = 'addDetail'>Add Detail</Button>
-                        <Button variant='deleteGoal'>Delete</Button>
+                        <Button variant = 'addDetail' onClick={() => handleAddDetail()}>Add Detail</Button>
+                        <Button variant='deleteGoal' onClick={() => handleDeleteDetail()}>Delete</Button>
                         </div>
                         </>
                     }

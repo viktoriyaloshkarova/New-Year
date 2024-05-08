@@ -23,14 +23,18 @@ public class GoalDetail {
     @Column(name="text")
     private String text;
 
+    @Column(name="progress")
+    private Float progress;
+
     @Column(name="timestamp", columnDefinition="TIMESTAMP", insertable = false, updatable = false)
     private LocalDateTime timestamp;
 
     public GoalDetail() {}
-    public GoalDetail(Integer goalDetailId, Integer goalId, String text, LocalDateTime timestamp) {
+    public GoalDetail(Integer goalDetailId, Integer goalId, String text, Float progress, LocalDateTime timestamp) {
         this.goalDetailId = goalDetailId;
         this.goalId = goalId;
         this.text = text;
+        this.progress = progress;
         this.timestamp = timestamp;
     }
 
@@ -56,6 +60,14 @@ public class GoalDetail {
 
     public void setText(String text) {
         this.text = text;
+    }
+
+    public Float getProgress() {
+        return progress;
+    }
+
+    public void setProgress(Float progress) {
+        this.progress = progress;
     }
 
     public LocalDateTime getTimestamp() {
