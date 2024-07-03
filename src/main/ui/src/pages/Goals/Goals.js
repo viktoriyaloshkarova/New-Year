@@ -75,10 +75,11 @@ function Goals() {
     const handleSaveClick = (detail) => {
         detail['text'] = editableText[detail.goalDetailId];
         axios.put("http://localhost:8080/goaldetails/update/" + detail.goalDetailId, detail)
-        .then((response) => { 
+        .then(() => { 
             setIsEditing({ ...isEditing, [detail.goalDetailId]: false });
         })   
     };
+
 
     const handleCancelClick = (id) => {
         setIsEditing({ ...isEditing, [id]: false });
@@ -88,14 +89,37 @@ function Goals() {
         setEditableText({ ...editableText, [id]: e.target.value });
     };
 
+
+
+    const handleDeleteDetail = async (goalDetailId) => {
+        try {
+            await axios.delete("http://localhost:8080/goaldetails/delete/" + goalDetailId);
+    
+            // Update state to remove deleted detail
+            setGoalDetails((prevGoalDetails) => {
+                // Create a new object for updated goalDetails
+                const updatedGoalDetails = { ...prevGoalDetails };
+    
+                // Find the goal associated with this detail
+                for (const goalId in updatedGoalDetails) {
+                    updatedGoalDetails[goalId] = updatedGoalDetails[goalId].filter(detail => detail.goalDetailId !== goalDetailId);
+                }
+    
+                return updatedGoalDetails;
+            });
+        } catch (error) {
+            console.error("Failed to delete detail:", error);
+        }
+    };
+    
+
     const handleAddDetail = () => {
 
     }
 
-    const handleDeleteDetail = () => {
-        
-    }
+    const handleDeleteGoal = () => {
 
+    }
 
     
     return(
@@ -152,7 +176,7 @@ function Goals() {
                             ) : (
                                 <>
                                     <Button variant="edit" onClick={() => handleEditClick(detail.goalDetailId, detail.text)}><FaPen /></Button>
-                                    <Button variant="edit" onClick={() => setProgress(0)}><FaTrash /></Button>
+                                    <Button variant="edit" onClick={() => handleDeleteDetail(detail.goalDetailId)}><FaTrash /></Button>
                                 </>
                             )}
                             </div>
@@ -163,7 +187,7 @@ function Goals() {
                         }
                         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <Button variant = 'addDetail' onClick={() => handleAddDetail()}>Add Detail</Button>
-                        <Button variant='deleteGoal' onClick={() => handleDeleteDetail()}>Delete</Button>
+                        <Button variant='deleteGoal' onClick={() => handleDeleteGoal()}>Delete</Button>
                         </div>
                         </>
                     }
