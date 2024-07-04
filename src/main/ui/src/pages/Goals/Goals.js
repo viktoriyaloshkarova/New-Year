@@ -6,6 +6,7 @@ import { RxCross2 } from "react-icons/rx";
 import axios from "axios";
 import './/Goals.css'
 import CreateGoal from "../../components/CreateGoal/CreateGoal";
+import DeleteModal from "../../components/DeleteModal";
 
 function Goals() {
     const [goals, setGoals] = useState([]);
@@ -14,6 +15,8 @@ function Goals() {
     const [isEditing, setIsEditing] = useState(false);
     const [showModal, setShowModal] = useState(false);
     const [goalDetails, setGoalDetails] = useState({});
+    const [showDeleteModal, setShowDeleteModal] = useState(false);
+    const [goalToDelete, setGoalToDelete] = useState(null)
 
     const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
@@ -42,8 +45,6 @@ function Goals() {
             fetchGoals();
     }, [])
 
-    // console.log(goalDetails[1].length)
-    // console.log(goals)
 
   
     const handleIncrease = (detail, goal) => {
@@ -90,7 +91,14 @@ function Goals() {
         setEditableText({ ...editableText, [id]: e.target.value });
     };
 
-
+    const handleShowDeleteModal = (goalId) => {
+        setShowDeleteModal(true);
+        setGoalToDelete(goalId);
+    }
+    const handleCloseDeleteModal = () => {
+        setShowDeleteModal(false);
+        setGoalToDelete(null);
+    }
 
     const handleDeleteDetail = async (goalDetailId) => {
         try {
@@ -105,7 +113,7 @@ function Goals() {
                 return updatedGoalDetails;
             });
         } catch (error) {
-            console.error("Failed to delete detail:", error);
+            console.error("Failed to delete detail: ", error);
         }
     };
     
@@ -114,8 +122,14 @@ function Goals() {
 
     }
 
-    const handleDeleteGoal = () => {
-
+    const handleDeleteGoal = async () => {
+        try {
+            await axios.delete("http://localhost:8080/goals/delete/" + goalToDelete);
+            setGoals((prevGoals) => prevGoals.filter(goal => goal.goalId !== goalToDelete))
+            handleCloseDeleteModal();
+        } catch (error) {
+            console.error("failed to delete goal: ", error)
+        }
     }
 
     const updateGoals = (newGoal) => {
@@ -192,7 +206,7 @@ function Goals() {
                         }
                         <div style={{display: 'flex', justifyContent: 'flex-end'}}>
                         <Button variant = 'addDetail' onClick={() => handleAddDetail()}>Add Detail</Button>
-                        <Button variant='deleteGoal' onClick={() => handleDeleteGoal()}>Delete</Button>
+                        <Button variant='deleteGoal' onClick={() => handleShowDeleteModal(goal.goalId)}>Delete</Button>
                         </div>
                         </>
                     }
@@ -208,7 +222,7 @@ function Goals() {
             }
         </Accordion>
         }
-      
+        <DeleteModal show={showDeleteModal} handleClose={() => handleCloseDeleteModal} handleDeleteGoal={handleDeleteGoal}/>
 
         </div>
     )

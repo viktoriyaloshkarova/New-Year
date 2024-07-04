@@ -27,12 +27,22 @@
   color: rgb(239, 225, 225);
 }
 
+.btn-deleteGoal:hover {
+  background-color: rgb(142, 42, 42);
+  color: white; 
+}
+
 .btn-addDetail {
   margin-top: 5px;
   margin-right: 5px;
   background-color: #7ed957;
   border: 'none';
   color: rgb(255, 255, 255);
+}
+
+.btn-addDetail:hover {
+  background-color: darkgreen; 
+  color: white; 
 }
 
 .accordionItemContainer {
