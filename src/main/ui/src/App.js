@@ -6,7 +6,7 @@ import Home from './pages/Home/Home';
 import Login from './components/Login'
 import { useSelector, useDispatch } from 'react-redux';
 import Goals from './pages/Goals/Goals';
-import CreateGoal from './components/CreateGoal';
+import CreateGoal from './components/CreateGoal/CreateGoal';
 import Explore from './pages/Explore';
 
 function App() {

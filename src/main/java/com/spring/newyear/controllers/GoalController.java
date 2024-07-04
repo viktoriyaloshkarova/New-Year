@@ -46,9 +46,9 @@ public class GoalController {
     }
 
     @PostMapping("/add")
-    public ResponseEntity<Void> addGoal(@RequestBody Goal goal) {
-        goalRepo.save(goal);
-        return new ResponseEntity<Void>(HttpStatus.CREATED);
+    public ResponseEntity<Goal> addGoal(@RequestBody Goal goal) {
+        Goal newGoal = goalRepo.save(goal);
+        return new ResponseEntity<>(newGoal, HttpStatus.CREATED);
     }
 
     @PutMapping("/update/{goalId}")

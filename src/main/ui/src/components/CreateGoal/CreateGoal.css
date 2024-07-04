@@ -1,0 +1,40 @@
+.custom-modal {
+    max-width: 50%; /* Example width, adjust as needed */
+}
+
+
+.btn-closeGoal {
+    margin: 10px;
+    font-size: 20px; 
+    padding: 5px 20px; 
+    border-radius: 40px; 
+    background-color: #696969; 
+    color: white; 
+    text-decoration: none; 
+    border: none; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
+
+.btn-closeGoal:hover {
+    background-color: #4a4848; 
+    color: white; 
+}
+
+.btn-addNewDetail {
+    margin: 10px;
+    font-size: 18px; 
+    padding: 5px 20px; 
+    border-radius: 40px; 
+    background-color: #696969; 
+    color: white; 
+    text-decoration: none; 
+    border: none; 
+    cursor: pointer; 
+    transition: background-color 0.3s ease;
+}
+
+.btn-addNewDetail:hover {
+    background-color: #4a4848; 
+    color: white; 
+}

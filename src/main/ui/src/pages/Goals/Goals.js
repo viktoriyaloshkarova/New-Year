@@ -1,20 +1,21 @@
 import { useState, useEffect } from "react";
-import { Button, Card, Accordion, Form, ProgressBar, Container } from "react-bootstrap";
+import { Button, Accordion, Form, ProgressBar, Container } from "react-bootstrap";
 import { useDispatch, useSelector } from 'react-redux';
 import { FaTrash, FaPen, FaCheck, FaPlus, FaMinus } from 'react-icons/fa';
 import { RxCross2 } from "react-icons/rx";
 import axios from "axios";
 import './/Goals.css'
+import CreateGoal from "../../components/CreateGoal/CreateGoal";
 
 function Goals() {
     const [goals, setGoals] = useState([]);
     const [editableText, setEditableText] = useState('');
     const [progress, setProgress] = useState(0);
     const [isEditing, setIsEditing] = useState(false);
-    const [editingId, setEditingId] = useState(null);
-    const dispatch = useDispatch();
-    // delete unused variable
+    const [showModal, setShowModal] = useState(false);
     const [goalDetails, setGoalDetails] = useState({});
+
+    const dispatch = useDispatch();
     const user = useSelector((state) => state.user.user);
     const isLoggedIn = useSelector((state) => state.user.loggedIn);
     useEffect(() => {
@@ -95,13 +96,9 @@ function Goals() {
         try {
             await axios.delete("http://localhost:8080/goaldetails/delete/" + goalDetailId);
     
-            // Update state to remove deleted detail
             setGoalDetails((prevGoalDetails) => {
-                // Create a new object for updated goalDetails
                 const updatedGoalDetails = { ...prevGoalDetails };
-    
-                // Find the goal associated with this detail
-                for (const goalId in updatedGoalDetails) {
+                    for (const goalId in updatedGoalDetails) {
                     updatedGoalDetails[goalId] = updatedGoalDetails[goalId].filter(detail => detail.goalDetailId !== goalDetailId);
                 }
     
@@ -121,13 +118,21 @@ function Goals() {
 
     }
 
+    const updateGoals = (newGoal) => {
+        setGoals(prevGoals => [...prevGoals, newGoal]);
+
+        setGoalDetails(prevGoalDetails => ({
+            ...prevGoalDetails,
+            [newGoal.goalId]: newGoal.details
+        }));
+    };
     
     return(
         <div className='goalsPage'>
         <h1>Your Goals
-             <Button variant='newGoal'>New</Button>
+             <Button variant='newGoal' onClick={() => setShowModal(true)}>New</Button>
         </h1>
-
+        <CreateGoal show={showModal} handleClose={() => setShowModal(false)} updateGoals={updateGoals}/>
   
         {isLoggedIn &&
         <Accordion style={{width: '80%'}} alwaysOpen>
