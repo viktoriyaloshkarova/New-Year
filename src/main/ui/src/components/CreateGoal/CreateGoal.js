@@ -9,7 +9,7 @@ const categories = [
     "financial",
     "career",
     "intellectual",
-    "health/wellness",
+    "health",
     "social"
 ];
 

@@ -64,76 +64,75 @@
 
 .financial .accordion-button {
     background-color: rgb(158, 225, 139) !important;
-  }
-  .spiritual .accordion-button {
-    background-color: rgb(135, 203, 208) !important;
-  }
-  .career .accordion-button {
-    background-color: rgb(134, 139, 236) !important;
-  }
-  .intelectual .accordion-button {
-    background-color: rgb(159, 110, 190) !important;
-  }
-  .health .accordion-button {
-    background-color: rgb(249, 236, 137) !important;
-  }
-  .social .accordion-button {
-    background-color: rgb(227, 91, 91) !important;
-  }
+}
+.spiritual .accordion-button {
+  background-color: rgb(135, 203, 208) !important;
+}
+.career .accordion-button {
+  background-color: rgb(134, 139, 236) !important;
+}
+.intellectual .accordion-button {
+  background-color: rgb(159, 110, 190) !important;
+}
+.health .accordion-button {
+  background-color: rgb(249, 236, 137) !important;
+}
+.social .accordion-button {
+  background-color: rgb(227, 91, 91) !important;
+}
 
-  .accordion-button:hover
-  {
-    box-shadow: none;
-  }
+.accordion-button:hover
+{
+  box-shadow: none;
+}
 
-  .accordion-body {
-    font-size: 18px;
-  }
+.accordion-body {
+  font-size: 18px;
+}
 
-  .financial .accordion-body {
-    background-color: rgb(194, 245, 180) ;
-  } 
-  .spiritual .accordion-body {
-    background-color: rgb(172, 238, 243) ;
-  } 
-  .career .accordion-body {
-    background-color: rgb(176, 179, 237) ;
-  } 
-  .intelectual .accordion-body {
-    background-color: rgb(197, 151, 226);
-  } 
-  .health .accordion-body {
-    background-color: rgb(245, 239, 194)  ;
-  } 
-  .social .accordion-body {
-    background-color: rgb(236, 131, 131)  ;
-  } 
+.financial .accordion-body {
+  background-color: rgb(194, 245, 180) ;
+} 
+.spiritual .accordion-body {
+  background-color: rgb(172, 238, 243) ;
+} 
+.career .accordion-body {
+  background-color: rgb(176, 179, 237) ;
+} 
+.intellectual .accordion-body {
+  background-color: rgb(197, 151, 226);
+} 
+.health .accordion-body {
+  background-color: rgb(245, 239, 194)  ;
+} 
+.social .accordion-body {
+  background-color: rgb(236, 131, 131)  ;
+} 
 .bg-financial {
-    background-color: gray !important;
-  }
-  .bg-custom {
-    flex: 1;
-    width: 80%;
-    margin: 0 10px;
-  }
+  background-color: gray !important;
+}
+.bg-custom {
+  flex: 1;
+  width: 80%;
+  margin: 0 10px;
+}
 
-  .p {
-    margin: 0 10px;
-    max-width: 10px;
-  }
+.p {
+  margin: 0 10px;
+  max-width: 10px;
+}
 
-  .btn-edit {
-    background-color: transparent;
-    border: 'none';
-    color: white;
-    margin-left: 1px;
-    }
-  .btn-edit:hover {
-    color: gray;
+.btn-edit {
+  background-color: transparent;
+  border: 'none';
+  color: white;
+  margin-left: 1px;
   }
+.btn-edit:hover {
+  color: gray;
+}
 
-  .accordion-header {
-    background-color: transparent !important;
-    box-shadow: none !important;
-  }
-  
+.accordion-header {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
